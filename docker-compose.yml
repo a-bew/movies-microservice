@@ -1,6 +1,6 @@
 version: "3.2"
 services:
-  app:
+  auth:
     command: node src/server.js
     build:
       context: .
@@ -9,6 +9,6 @@ services:
       - published: ${APP_PORT:-3000}
         target: 3000
     volumes:
-      - .:/app/
+      - .:/auth
     environment:
       JWT_SECRET: ${JWT_SECRET}
