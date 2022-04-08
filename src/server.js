@@ -1,52 +1,49 @@
-const express = require("express");
-const bodyParser = require("body-parser");
-const { authFactory, AuthError } = require("./auth");
+require('../src/config/config');
 
-const PORT = 3000;
-const { JWT_SECRET } = process.env;
+import express from 'express'
+import cors from 'cors'
+import bodyParser from 'body-parser'
+import logger from 'morgan'
+import VerifyToken from './utility/jwt_helper';
 
-if (!JWT_SECRET) {
-  throw new Error("Missing JWT_SECRET env var. Set it and restart the server");
-}
+const getAuth = require('./routes/auth/auth.routes');
+const postRoutes = require("./routes/movies/authorizedUser.routes")
+const getRoutes = require('./routes/movies/getMovies.routes');
 
-const auth = authFactory(JWT_SECRET);
-const app = express();
+// import { router as getRoutes } from './routes/get.routes';
+
+const PORT = process.env.APP_PORT || 3000
+const app = express()
+const verifier = new VerifyToken();
+
+app.use(cors()); 
+
+app.use(logger('dev'))
 
 app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
-app.post("/auth", (req, res, next) => {
-  if (!req.body) {
-    return res.status(400).json({ error: "invalid payload" });
-  }
+app.use("/auth", getAuth);
 
-  const { username, password } = req.body;
+app.use("/api/", getRoutes);
 
-  if (!username || !password) {
-    return res.status(400).json({ error: "invalid payload" });
-  }
-
-  try {
-    const token = auth(username, password);
-
-    return res.status(200).json({ token });
-  } catch (error) {
-    if (error instanceof AuthError) {
-      return res.status(401).json({ error: error.message });
-    }
-
-    next(error);
-  }
-});
+app.use("/api/v1", verifier.verifyAccessToken, postRoutes);  // :collection
 
 app.use((error, _, res, __) => {
+
   console.error(
     `Error processing request ${error}. See next message for details`
   );
   console.error(error);
-
   return res.status(500).json({ error: "internal server error" });
+
 });
 
-app.listen(PORT, () => {
-  console.log(`auth svc running at port ${PORT}`);
-});
+if (process.env.NODE_ENV !== 'test') {
+  app.listen(PORT, () => {
+    console.log(`auth svc running at port ${PORT}`);
+  });
+  
+}
+  
+export default app
