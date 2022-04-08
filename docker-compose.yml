@@ -1,7 +1,7 @@
 version: "3.2"
 services:
-  app:
-    command: node src/server.js
+  theapp:
+    command: npm run dev
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,6 +9,66 @@ services:
       - published: ${APP_PORT:-3000}
         target: 3000
     volumes:
-      - .:/app/
+      - .:/theapp
+
+    depends_on:
+      - postgresdb
+
     environment:
       JWT_SECRET: ${JWT_SECRET}
+    env_file: 
+      - "./.env"
+      - "./.env.${NODE_ENV}"
+
+  # postgresdb:
+  #   image: postgresdb
+  #   container_name: postgresdb
+  #   build:
+  #     context: .
+  #     target: postgresdb
+  #     dockerfile: Dockerfile.postgresdb
+
+  #   env_file: 
+  #     - "./.env"
+  #     - "./.env.${NODE_ENV}"
+  #   ports:
+  #     - '4321:5432'
+
+  #   environment:
+  #     POSTGRES_PASSWORD: ${PASSWORD}
+  #     POSTGRES_USER: ${USERNAME}
+  #     POSTGRES_DB: ${DATABASE}
+
+  #   volumes:
+  #     - .:/app
+      # - pg_data:/var/lib/postgresql/data/
+    
+    # theapp-tests:
+    #   image: theapp
+    #   command: dockerize
+    #     -wait tcp://4321 -wait tcp://theapp:3000 -timeout 10s
+    #     bash -c "node db/init.js && npm run test"
+    #   environment:
+    #     APP_URL: http://myapp:3000
+    #     POSTGRES_PASSWORD: ${PASSWORD}
+    #     POSTGRES_USER: ${USERNAME}
+    #     POSTGRES_DB: ${DATABASE}
+    #   depends_on:
+    #     - postgresdb
+    #     - theapp  
+
+
+  postgresdb:
+    env_file: 
+      - "./.env"
+      - "./.env.${NODE_ENV}"
+    image: 'postgres'
+    ports:
+      - '4321:5432'
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USER: ${USERNAME}
+      # POSTGRES_DB: ${DATABASE}
+
+# volumes:
+#   pg_data:
