@@ -1,5 +1,6 @@
 require('../src/config/config');
 
+
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
@@ -22,6 +23,10 @@ app.use(logger('dev'))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.get('/test', (req, res) => {
+  res.json({message:'Hello World!'})
+})
 
 app.use("/auth", getAuth);
 
@@ -46,7 +51,5 @@ if (process.env.NODE_ENV !== 'test') {
   
 }
 
-
-
   
-export default app
+module.exports = app

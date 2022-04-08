@@ -8,7 +8,7 @@
 - **Code**: ESLint, Prettier, Husky
 - **Debuging**: Debug, VS Code configurations
 - **Logging**: Winston
-- **Testing**: Jest, SuperTest, AutoCannon
+- **Testing**: Jest, SuperTest
 - **Continuous Integration**: GitHub Actions + Docker Compose
 - **Other**: Nodemon, DotEnv
 - Well structured
@@ -18,8 +18,8 @@
 ## Getting Started
 
 ```shell
-git clone https://github.com/a-bew/nodejs-recruitment-task
-cd nodejs-recruitment-task
+git clone https://github.com/a-bew/nodejs-task
+cd nodejs-task
 
 ```
 
@@ -32,7 +32,7 @@ cd nodejs-recruitment-task
 ## Access Docker Shell
 
 - docker container shell access command after container is started
-  ` docker compose exec <container-name> npx sequelize-cli db:create <database-name> --env development`
+  ` docker compose exec <container-name> npx sequelize-cli db:create --env development`
 - create database via active docker container (postgresdb)
   `docker compose run --rm postgresdb psql -h postgresdb -U docker -c 'create database devDB;' `
 - Migrate database via active docker container (postgresdb)

@@ -1,6 +1,7 @@
 const dotenv = require('dotenv')
 const path = require('path')
 
+
 dotenv.config({
 	path: path.resolve(`.env.${process.env.NODE_ENV}`)
 })
@@ -20,6 +21,15 @@ module.exports = {
   },
 
   "test": {
+    "username": USERNAME,
+    "password": PASSWORD,
+    "database": DATABASE,
+    "host": HOST,
+    "dialect": DIALECT,
+    "port": PORT
+  },
+
+  "docker": {
     "username": USERNAME,
     "password": PASSWORD,
     "database": DATABASE,
