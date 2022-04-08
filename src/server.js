@@ -25,9 +25,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/auth", getAuth);
 
-app.use("/api/", getRoutes);
+app.use("/movies", getRoutes);
 
-app.use("/api/v1", verifier.verifyAccessToken, postRoutes);  // :collection
+app.use("/movies", verifier.verifyAccessToken, postRoutes);  // :collection
 
 app.use((error, _, res, __) => {
 
@@ -45,5 +45,8 @@ if (process.env.NODE_ENV !== 'test') {
   });
   
 }
+
+
+
   
 export default app

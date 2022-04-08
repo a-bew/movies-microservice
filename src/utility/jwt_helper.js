@@ -16,7 +16,7 @@ class VerifyToken {
 
         var token = req.headers.authorization.split(' ')[1];
         
-        JWT.verify(token, SECRET).then((err, payload)=>{
+        JWT.verify(token, SECRET, (err, payload)=>{
 
             if (err){
 
@@ -39,6 +39,7 @@ class VerifyToken {
 
 
         })
+        
     }
 
 

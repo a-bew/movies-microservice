@@ -18,7 +18,7 @@ export const getUserMovie = async (userId) => {
               }
             });
       
-            // return resolve(movies)
+            return resolve(movies)
       
           } catch (error) {
       
