@@ -7,7 +7,9 @@ exports.postMovies = async (req, res)=>{
   
     try {
 
-        const { title, userId, name, role } = req.body;
+        const {userId, name, role } = req;
+
+        const { title } = req.body;
 
         const { Title, Released, Genre, Director, } = await movieApi.getMovie(title);
 
