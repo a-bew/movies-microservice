@@ -5,6 +5,11 @@ WORKDIR /app
 COPY ./package.json ./package-lock.json ./
 RUN npm install
 
+COPY ./.sequelizerc ./
+COPY ./.env.test  ./
+COPY ./.env.development ./
+COPY ./.env ./
+
 RUN mkdir ./src
 COPY ./src ./src
 
