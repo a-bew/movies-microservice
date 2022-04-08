@@ -1,7 +1,7 @@
 version: "3.2"
 services:
-  auth:
-    command: node src/server.js
+  theapp:
+    command: npm run dev
     build:
       context: .
       dockerfile: Dockerfile
@@ -9,6 +9,22 @@ services:
       - published: ${APP_PORT:-3000}
         target: 3000
     volumes:
-      - .:/auth
+      - .:/theapp
+
+    depends_on:
+      - postgresdb
+
     environment:
       JWT_SECRET: ${JWT_SECRET}
+
+  postgresdb:
+    env_file: 
+      - "./.env"
+      - "./.env.${NODE_ENV}"
+    image: 'postgres'
+    ports:
+      - '4321:5432'
+    environment:
+      POSTGRES_PASSWORD: ${PASSWORD}
+      POSTGRES_USER: ${USERNAME}
+      # POSTGRES_DB: ${DATABASE}
