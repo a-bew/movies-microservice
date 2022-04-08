@@ -7,6 +7,8 @@ dotenv.config({
 
 const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT } = process.env;
 
+console.log(path.resolve(`.env.${process.env.NODE_ENV}`), process.env.NODE_ENV)
+
 module.exports = {
   "development": {
     "username": USERNAME,
