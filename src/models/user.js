@@ -21,11 +21,8 @@ module.exports = (sequelize, DataTypes) => {
       User.hasMany(models.Movie, {
         foreignKey: 'userId',
         as: 'movies',
-      });
-      
-    }
-
-    
+      }); 
+    }   
   }
 
  
