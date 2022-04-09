@@ -7,7 +7,7 @@ dotenv.config({
 
 const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV } = process.env;
 
-if (NODE_ENV === "development") {
+if (NODE_ENV !== "development") {
 
   console.log = () => {};
   console.info = () => {}; 
