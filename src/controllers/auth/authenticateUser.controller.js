@@ -1,4 +1,4 @@
-const { authFactory, AuthError } = require("../../utility/auth");
+const { authFactory, AuthError } = require("../../services/auth/service.auth");
 
 const { JWT_SECRET } = process.env;
 
@@ -7,8 +7,6 @@ if (!JWT_SECRET) {
 }
 
 const auth = authFactory(JWT_SECRET);
-
-
 
 exports.authenticateUser = async (req, res, next)=>{
   
