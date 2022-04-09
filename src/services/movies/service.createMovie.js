@@ -35,7 +35,7 @@ export const moviePost = async (movie)=>{
 
                 const result = await user.addMovie(movie);    
 
-                console.log("result", result);
+                // console.log("result", result);
 
             } else {
 
