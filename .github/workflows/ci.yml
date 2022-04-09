@@ -19,9 +19,9 @@ jobs:
       - name: Install dependencies
         run: npm ci
       - name: Build the Docker image
-        run: docker build -t nodejs-recruitment-task .
+        run: docker build -t microservice-boilerplate .
       - name: Run the Docker image
-        run: docker run -d -p 7000:3000 -e JWT_SECRET nodejs-recruitment-task
+        run: docker run -d -p 3000:3000 -e JWT_SECRET microservice-boilerplate
         env:
           JWT_SECRET: SECRET_PASSWORD
       - name: Run end-to-end tests
