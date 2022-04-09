@@ -20,11 +20,8 @@ jobs:
         run: npm ci
       - name: Build the Docker image
         run: JWT_SECRET=secret docker compose up --build -d
-#         -t nodejs-recruitment-task .
-      - name: Run the Docker image
-        run: docker compose up theapp -d
-#         env:
-#           JWT_SECRET: SECRET_PASSWORD
+        env:
+          JWT_SECRET: SECRET_PASSWORD
       - name: Run end-to-end tests
         run: npm run test
         env:
