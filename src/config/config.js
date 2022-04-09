@@ -1,12 +1,21 @@
 const dotenv = require('dotenv')
 const path = require('path')
 
-
 dotenv.config({
 	path: path.resolve(`.env.${process.env.NODE_ENV}`)
 })
 
-const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT } = process.env;
+const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV } = process.env;
+
+if (NODE_ENV !== "development") {
+
+  console.log = () => {};
+  console.info = () => {}; 
+  console.warn = () => {};
+  console.error = () => {};
+  console.debug = () => {};
+
+}
 
 console.log(path.resolve(`.env.${process.env.NODE_ENV}`), process.env.NODE_ENV)
 
