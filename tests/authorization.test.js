@@ -1,29 +1,27 @@
-import request from 'supertest';
-import app from '../src/server';
-
 const fetch = require('node-fetch');
+
+const apiBase = 'http://0.0.0.0:3000/auth';
 
 const params = { 
     "username": "basic-thomas",
     "password": "sR-_pcoow-27-6PAwCD8"
 }
 
-describe('Get Root', () => {
-    it('should get /dsas', async () => {
-    try {
+describe('Get auth', () => {
+    it('should get /auth', async () => {
 
-                const response = await request(app)
-            .post('/auth')
-            .query(params)
-            expect(response.statusCode).toBe(200);
+        
+      
+        const response = await fetch(apiBase, {
+            method: 'POST',
+            body: JSON.stringify(params),
+            headers: { 'Content-Type': 'application/json' }
+        })
 
-    } catch (error) {
+        expect(response.status).toBe(200);
 
-        console.log(error.message)
-
-    }
     
-})
+    })
 });
 
 
