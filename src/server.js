@@ -1,32 +1,34 @@
 require('../src/config/config');
-
-
 import express from 'express'
 import cors from 'cors'
 import bodyParser from 'body-parser'
 import logger from 'morgan'
 import VerifyToken from './utility/jwt_helper';
+const { default: helmet } = require('helmet');
+const compression = require('compression');
 
 const getAuth = require('./routes/auth/auth.routes');
 const postRoutes = require("./routes/movies/authorizedUser.routes")
 const getRoutes = require('./routes/movies/getMovies.routes');
 
-// import { router as getRoutes } from './routes/get.routes';
-
 const PORT = process.env.APP_PORT || 3000
 const app = express()
 const verifier = new VerifyToken();
 
-app.use(cors()); 
 
+// app.use(limiter);
+app.set('trust proxy', 1)
+
+app.use(cors());  //{credentials: true, origin: 'http://127.0.0:3000'}
+
+app.use(helmet());
+app.use(compression());
+  
 app.use(logger('dev'))
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-app.get('/test', (req, res) => {
-  res.json({message:'Hello World!'})
-})
 
 app.use("/auth", getAuth);
 
@@ -51,5 +53,4 @@ if (process.env.NODE_ENV !== 'test') {
   
 }
 
-  
 module.exports = app
