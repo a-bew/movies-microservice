@@ -1,56 +1,48 @@
 import request from 'supertest';
 import app from '../src/server';
-
-const fetch = require('node-fetch');
+import { postMovies } from '../src/services/tests/service.getMovies';
+import { getToken } from '../src/services/tests/service.getToken';
 
 let token, status;
 
+beforeAll( async () => {
 
-beforeAll(async () => {
+    const response = await getToken();
 
-    const apiBase = 'http://0.0.0.0:3000/auth';
+    const body = await response.json();
 
-    const params = { 
-        "username": "basic-thomas",
-        "password": "sR-_pcoow-27-6PAwCD8"
-    }
+    status = response.status;
 
-    const response = await fetch(apiBase, {
-        method: 'POST',
-        body: JSON.stringify(params),
-        headers: { 'Content-Type': 'application/json' }
-    })
+    token = body.token;
 
-    console.log()
-
-     const body = await response.json();
-     status = response.status;
-     token = body.token
-   
-  });
+});
   
 
 describe('Get auth', () => {
-    it('should get /auth', async () => {
+    test('should get /auth', async () => {
         expect(status).toBe(200);    
     })
 });
 
 describe('Simple post movie',  () => {
 
-    it('should respond with a 200 status code', async () => {
+    test('should respond with a 200 status code', async () => {
 
-    const res = await request(app)
-        .post('/movies')
-        .set('Authorization', `Bearer ${token}`)
-        .send({ title: 'coda' })
-        expect(res.statusCode).toBe(200);
+    // const res = await request(app)
+    //     .post('http://0.0.0.0:7000/movies')
+    //     .set('Authorization', `Bearer ${token}`)
+    //     .send({ title: 'coda' })
+
+        const response = await postMovies(token);
+
+        expect(response.status).toBe(200);
+
     })
 })
 
 
 describe('Get Movoes', () => {
-    it('should get /movies', async () => {
+    test('should get /movies', async () => {
       const res = await request(app)
         .get('/movies')
         .query({ userId: 123 })
