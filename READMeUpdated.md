@@ -32,7 +32,7 @@ cd nodejs-task
 ## Access Docker Shell
 
 - docker container shell access command after container is started
-  ` docker compose exec <container-name> npx sequelize-cli db:create --env development`
+  ` docker compose exec <container-name> npx sequelize-cli db:create <database-name> --env development`
 - create database via active docker container (postgresdb)
   `docker compose run --rm postgresdb psql -h postgresdb -U docker -c 'create database devDB;' `
 - Migrate database via active docker container (postgresdb)
