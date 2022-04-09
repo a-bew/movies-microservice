@@ -41,13 +41,13 @@ describe('Simple post movie',  () => {
     it('should respond with a 200 status code', async () => {
 
         // console.log("token", token);
-    const token = await getToken();
-    const res = await request(app)
-        .post('/movies')
-        .set('Authorization', `Bearer ${token}`)
-        .send({ title: 'coda' })
-        expect(res.statusCode).toBe(200);
+        const token = await getToken();
+        const res = await request(app)
+            .post('/movies')
+            .set('Authorization', `Bearer ${token}`)
+            .send({ title: 'coda' })
+            expect(res.statusCode).toBe(200);
 
 
-    })
+        })
 })
