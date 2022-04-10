@@ -1,145 +1,102 @@
-# Node.js recruitment task
+# Node Recruitment Tasks
 
-We'd like you to build a simple Movie API. It should provide two endpoints:
+## Features
 
-1. `POST /movies`
-   1. Allows creating a movie object based on movie title passed in the request body
-   2. Based on the title additional movie details should be fetched from
-      https://omdbapi.com/ and saved to the database. Data we would like you to
-      fetch from OMDb API:
-   ```
-     Title: string
-     Released: date
-     Genre: string
-     Director: string
-   ```
-   3. Only authorized users can create a movie.
-   4. `Basic` users are restricted to create 5 movies per month (calendar
-      month). `Premium` users have no limits.
-1. `GET /movies`
-   1. Should fetch a list of all movies created by an authorized user.
+- **Framework**: Express
+- **Authentication**: JWT
+- **Database**: PostgreSQL (Sequelize)
+- **Code**: ESLint, Prettier, Husky
+- **Debuging**: Debug, VS Code configurations
+- **Logging**: Winston
+- **Testing**: Jest, SuperTest
+- **Continuous Integration**: GitHub Actions + Docker Compose
+- **Other**: Nodemon, DotEnv
+- Well structured
+- API versioning
+- Request Validation
 
-⚠️ Don't forget to verify user's authorization token before processing the
-request. The token should be passed in request's `Authorization` header.
+## Getting Started
 
-```
-Authorization: Bearer <token>
-```
-
-# Authorization service
-
-To authorize users please use our simple auth service based on JWT tokens.
-Auth service code is located under `./src` directory
-
-## Prerequisites
-
-You need to have `docker` and `docker-compose` installed on your computer to run the service
-
-## Run locally
-
-1. Clone this repository
-1. Run from root dir
+```shell
+git clone https://github.com/a-bew/nodejs-task
+cd nodejs-task
 
 ```
-JWT_SECRET=secret docker-compose up -d
-```
 
-By default the auth service will start on port `3000` but you can override
-the default value by setting the `APP_PORT` env var
+## How to RUN locally
 
 ```
-APP_PORT=8081 JWT_SECRET=secret docker-compose up -d
+     - name: Install dependencies
+        run: npm ci
+      - name: Build the Docker image
+        run: APP_PORT=7000 JWT_SECRET=secret docker compose up --build -d
+        env:
+          JWT_SECRET: SECRET_PASSWORD
+          APP_PORT: 7000
+      - name: Set Up Db And Migration
+        run: sh setupDb/nodeV1.sh
+      - name: Run end-to-end tests
+        run: npm run test
 ```
 
-To stop the authorization service run
+## Access Docker Shell (Ref: setupDB/nodeV1/sh)
 
 ```
-docker-compose down
+- drop db command
+
+` docker compose exec <container-name> npx sequelize-cli db:create <database-name> --env <ENV>`
+
+- create db command
+
+`docker compose exec <container-name> \ npx sequelize-cli db:create --env <ENV>`
+
+## create db migrate
+
+`docker compose exec <database-name> npx sequelize-cli db:migrate --env <ENV>`
 ```
 
-## JWT Secret
-
-To generate tokens in auth service you need to provide env variable
-`JWT_SECRET`. It should be a string value. You should use the same secret in
-the API you're building to verify the JWT tokens.
-
-## Users
-
-The auth service defines two user accounts that you should use
-
-1. `Basic` user
+## Generate JWT keys
 
 ```
- username: 'basic-thomas'
- password: 'sR-_pcoow-27-6PAwCD8'
+    curl --location --request POST '0.0.0.0:3000/auth' \
+    --header 'Content-Type: application/json' \
+    --data-raw '{
+        "username": "basic-thomas",
+        "password": "sR-_pcoow-27-6PAwCD8"
+    }'
+
+    Response: {"message":"Movie RRR Added Successfully"}
 ```
 
-1. `Premium` user
+# POST MOVIE
 
 ```
-username: 'premium-jim'
-password: 'GBLtTyq3E_UNjFnpo9m6'
+  curl -d '{"title":"Morbius"}' \
+    -H "Content-Type: application/json" \
+    -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTY0OTQwMDAwMSwiZXhwIjoxNjQ5NDAxODAxLCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.GlbEVHPKMKULUqOQpQXRcpeb9zSIghfaq2tUmGYksS8' -X POST 0.0.0.0:3000/movies
 ```
 
-## Token payload
+# GET MOVIE
 
-Decoding the auth token will give you access to basic information about the
-user, including its role.
-
+```shell
+      curl -X GET "0.0.0.0:3000/movies?userId=123"
+    Response: [{
+        "id":1,
+        "userId":123,
+        "title":"Morbius",
+        "release":"01 Apr 2022",
+        "genre":"Action, Adventure, Drama",
+        "director":"Daniel Espinosa",
+        "createdAt":"2022-04-08T07:40:22.254Z",
+        "updatedAt":"2022-04-08T07:40:22.254Z"
+      },{
+        "id":2,
+        "userId":123,
+        "title":"RRR",
+        "release":"25 Mar 2022",
+        "genre":"Action, Drama",
+        "director":"S.S. Rajamouli",
+        "createdAt":"2022-04-08T07:52:54.925Z",
+        "updatedAt":"2022-04-08T07:52:54.938Z"
+      }]
 ```
-{
-  "userId": 123,
-  "name": "Basic Thomas",
-  "role": "basic",
-  "iat": 1606221838,
-  "exp": 1606223638,
-  "iss": "https://www.netguru.com/",
-  "sub": "123"
-}
-```
-
-## Example request
-
-To authorize user call the auth service using for example `curl`. We assume
-that the auth service is running of the default port `3000`.
-
-Request
-
-```
-curl --location --request POST '0.0.0.0:3000/auth' \
---header 'Content-Type: application/json' \
---data-raw '{
-    "username": "basic-thomas",
-    "password": "sR-_pcoow-27-6PAwCD8"
-}'
-```
-
-Response
-
-```
-{
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTYwNjIyMTgzOCwiZXhwIjoxNjA2MjIzNjM4LCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.KjZ3zZM1lZa1SB8U-W65oQApSiC70ePdkQ7LbAhpUQg"
-}
-```
-
-## Rules
-
-- Database and framework choice are on your side.
-- Your API has to be dockerized. Create `Dockerfile` and `docker-compose` and document the process of running it locally.
-- Provided solution should consist of two microservices.
-  - `Authentication Service` - provided by us to auth users
-  - `Movies Service` - created by you to handle movies data
-- Test your code.
-- Provide documentation of your API.
-- Application should be pushed to the public git repository and should have a
-  working CI/CD pipeline that runs the tests. For example you can use GitHub
-  Actions or CircleCI. Create a sample PR to show us the working CI/CD pipeline.
-
-## What will be evaluated?
-
-- Task completeness
-- Architecture
-- Code quality
-- Tests quality
-- Database design
-- Technology stack
