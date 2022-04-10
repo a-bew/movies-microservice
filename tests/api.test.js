@@ -1,6 +1,7 @@
 import request from 'supertest';
 import app from '../src/server';
-import { postMovies } from '../src/services/tests/service.getMovies';
+import { postMovies } from '../src/services/tests/service.postMovies';
+import { getMovies } from '../src/services/tests/service.getMovies';
 import { getToken } from '../src/services/tests/service.getToken';
 
 let token, status;
@@ -40,13 +41,15 @@ describe('Simple post movie',  () => {
     })
 })
 
-
 describe('Get Movoes', () => {
+
     test('should get /movies', async () => {
-      const res = await request(app)
-        .get('/movies')
-        .query({ userId: 123 })
-      expect(res.statusCode).toEqual(200);
+
+      const response = await getMovies({ userId: 123 });
+        
+      expect(response.status).toEqual(200);
+
     })
-  });
+
+});
 
