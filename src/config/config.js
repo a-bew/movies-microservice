@@ -1,29 +1,32 @@
 const dotenv = require('dotenv')
 const path = require('path')
 
+
 dotenv.config({
 	path: path.resolve(`.env.${process.env.NODE_ENV}`)
 })
 
-const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV } = process.env;
+const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV, TEST_DATABASE, DEV_DATABASE } = process.env;
 
-if (NODE_ENV !== "development") {
+// if (NODE_ENV !== "development") {
 
-  console.log = () => {};
-  console.info = () => {}; 
-  console.warn = () => {};
-  console.error = () => {};
-  console.debug = () => {};
+//   console.log = () => {};
+//   console.info = () => {}; 
+//   console.warn = () => {};
+//   console.error = () => {};
+//   console.debug = () => {};
 
-}
+// }
 
-console.log(path.resolve(`.env.${process.env.NODE_ENV}`), process.env.NODE_ENV)
+console.log(path.resolve(__dirname,`.env.${process.env.NODE_ENV}`), process.env.NODE_ENV)
+
+console.log(USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV, TEST_DATABASE, DEV_DATABASE);
 
 module.exports = {
   "development": {
     "username": USERNAME,
     "password": PASSWORD,
-    "database": DATABASE,
+    "database": DEV_DATABASE,
     "host": HOST,
     "dialect": DIALECT,
      port: PORT
@@ -32,16 +35,7 @@ module.exports = {
   "test": {
     "username": USERNAME,
     "password": PASSWORD,
-    "database": DATABASE,
-    "host": HOST,
-    "dialect": DIALECT,
-    "port": PORT
-  },
-
-  "docker": {
-    "username": USERNAME,
-    "password": PASSWORD,
-    "database": DATABASE,
+    "database": TEST_DATABASE,
     "host": HOST,
     "dialect": DIALECT,
     "port": PORT
