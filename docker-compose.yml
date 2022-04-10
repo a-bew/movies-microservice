@@ -21,13 +21,18 @@ services:
       - "./.env.${NODE_ENV}"
 
   postgresdb:
+    image: postgres
     restart: unless-stopped
     env_file: 
       - "./.env"
-      - "./.env.${NODE_ENV}"
-    image: 'postgres'
+      - "./.env.${NODE_ENV}"    
     ports:
       - '4321:5432'
     environment:
-      POSTGRES_PASSWORD: ${PASSWORD}
-      POSTGRES_USER: ${USERNAME}
+      POSTGRES_PASSWORD: '123456'
+      POSTGRES_USER: 'docker'    
+    volumes:
+        - data:/var/lib/postgresql/data
+
+volumes:
+  data:
