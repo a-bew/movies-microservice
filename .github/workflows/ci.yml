@@ -24,6 +24,8 @@ jobs:
         run: docker run -d -p 7000:3000 -e JWT_SECRET nodejs-recruitment-task
         env:
           JWT_SECRET: SECRET_PASSWORD
+      - name: Set Up Db And Migration
+        run: sh setupDb/nodeV1.sh
       - name: Run end-to-end tests
         run: npm run test
         env:
