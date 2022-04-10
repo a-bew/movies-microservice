@@ -5,7 +5,7 @@
 - **Framework**: Express
 - **Authentication**: JWT
 - **Database**: PostgreSQL (Sequelize)
-- **Code**: ESLint, Prettier, Husky
+- **Code**: ESMAS(the fansy import), ESLint, Prettier, Husky
 - **Debuging**: Debug, VS Code configurations
 - **Logging**: Winston
 - **Testing**: Jest, SuperTest
