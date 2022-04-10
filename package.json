@@ -7,7 +7,6 @@
     "babel-node": "babel-node --presets='@babel/preset-env'",
     "dev": "NODE_ENV=development nodemon --exec yarn run babel-node -- ./src/server",
     "prod": "NODE_ENV=production nodemon --exec yarn run babel-node -- ./src/server",
-    "pretest": "NODE_ENV=test npx sequelize-cli db:migrate",
     "test": "NODE_ENV=test jest --runInBand --detectOpenHandles --forceExit"
   },
   "keywords": [],
