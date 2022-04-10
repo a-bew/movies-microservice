@@ -1,22 +1,17 @@
 import fetch from 'node-fetch';
 
 
+export const getMovies = ({userId})=>{
 
-
-export const postMovies = (token)=>{
-
-    const apiBase = 'http://0.0.0.0:7000/movies';
+    const apiBase = 'http://0.0.0.0:7000/movies?'+ new URLSearchParams({userId});
 
     return new Promise( async(resolve, reject)=>{
 
         try {
-         
             const response = await fetch(apiBase, {
-                method: 'POST',
-                body: JSON.stringify({ title: 'coda' }),
+                method: 'GET',
                 headers: { 
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
                  }
             })
 
