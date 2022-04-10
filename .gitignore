@@ -1,3 +1,5 @@
 .aws-sam/
 node_modules/
 scripts
+docker-entrypoint-initdb.d/
+Dockerfile.postgresdb
