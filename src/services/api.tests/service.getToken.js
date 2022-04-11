@@ -1,13 +1,10 @@
 import fetch from "node-fetch";
 
-export const getToken = async () => {
+export const getToken = async (params) => {
 
   const apiBase = "http://0.0.0.0:7000/auth";
 
-  const params = {
-    username: "basic-thomas",
-    password: "sR-_pcoow-27-6PAwCD8",
-  };
+
 
   try {
 
@@ -21,7 +18,7 @@ export const getToken = async () => {
 
   } catch (error) {
 
-    return error
+    throw new Error(error.message)
 
   }
 

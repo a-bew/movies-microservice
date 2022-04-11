@@ -9,6 +9,7 @@ if (!JWT_SECRET) {
 const auth = authFactory(JWT_SECRET);
 
 exports.authenticateUser = async (req, res, next) => {
+
   try {
     if (!req.body) {
       return res.status(400).json({ error: "invalid payload" });
@@ -21,10 +22,13 @@ exports.authenticateUser = async (req, res, next) => {
     }
 
     try {
+
       const token = auth(username, password);
 
       return res.status(200).json({ token });
+
     } catch (error) {
+
       if (error instanceof AuthError) {
         return res.status(401).json({ error: error.message });
       }
@@ -34,5 +38,7 @@ exports.authenticateUser = async (req, res, next) => {
   } catch (error) {
 
     res.status(500).json({ status: 500, message: error.message });
+
   }
+
 };

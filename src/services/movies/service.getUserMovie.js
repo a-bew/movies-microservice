@@ -1,23 +1,32 @@
 // const db = require('../config/db.config.js');
 var db = require("../../models");
 const Movie = db.Movie;
+const User = db.User;
 
 export const getUserMovie = async (userId) => {
-
     try {
-      const movies = await Movie.findAll({
+
+      const user = await User.findOne({
         where: {
-          userId: userId,
+          userId,
         },
+        include: [
+          {
+            model: Movie,
+            required: false,
+            as: "movies",
+          },
+        ],
       });
 
-      return movies;
+      return user && user.movies;
+
+
 
     } catch (error) {
 
-      return { status: 500, message: error.message };
+      throw new Error(error.message)
 
     }
-
   };
 

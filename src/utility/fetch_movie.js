@@ -1,5 +1,6 @@
 const { RESTDataSource, HTTPCache } = require("apollo-datasource-rest");
 
+//  http://www.omdbapi.com/?i=tt3896198&apikey=851d839a&t=coda
 
 class MovieApi extends RESTDataSource {
   constructor() {
@@ -25,20 +26,20 @@ class MovieApi extends RESTDataSource {
           },
         });
 
+        console.log("response", response);
 
-        if (!response.getOwnPropertyDescriptor("Response")) {
+
+        if (!Object.prototype.hasOwnProperty.call(response, "Response")) {
           return { message: response["Error"] };
         }
 
         return this.process(response);
-
       } catch (error) {
 
-        return { message: error.message };
+        throw new Error({ message: error.message });
 
       }
-
-    }
+  }
 
   process({ Title, Released, Genre, Director }) {
     return { Title, Released, Genre, Director };

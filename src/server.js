@@ -4,6 +4,8 @@ import cors from "cors";
 import bodyParser from "body-parser";
 import logger from "morgan";
 import VerifyToken from "./utility/jwt_helper";
+import canPostMovies from "./services/movies/service.countMovies";
+
 const { default: helmet } = require("helmet");
 const compression = require("compression");
 
@@ -32,7 +34,7 @@ app.use("/auth", getAuth);
 
 app.use("/movies", getRoutes);
 
-app.use("/movies", verifier.verifyAccessToken, postRoutes); // :collection
+app.use("/movies", verifier.verifyAccessToken, canPostMovies,  postRoutes); // :collection
 
 app.use((error, _, res, __) => {
   console.error(

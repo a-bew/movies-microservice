@@ -17,7 +17,7 @@ export const getMovies = async ({ userId }) => {
 
     } catch (error) {
 
-      return error;
+      throw new Error(error.message);
 
     }
 };

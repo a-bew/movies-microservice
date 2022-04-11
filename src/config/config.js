@@ -18,11 +18,11 @@ const {
 
 if (NODE_ENV !== "development") {
 
-  console.log = () => {};
-  console.info = () => {};
-  console.warn = () => {};
-  console.error = () => {};
-  console.debug = () => {};
+  // console.log = () => {};
+  // console.info = () => {};
+  // console.warn = () => {};
+  // console.error = () => {};
+  // console.debug = () => {};
 
 }
 

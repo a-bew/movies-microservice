@@ -1,7 +1,10 @@
+// const { moviesCounted } = require("../../services/movies/service.countMovies");
 const { moviePost } = require("../../services/movies/service.createMovie");
+// const { getUserMovie } = require("../../services/movies/service.getUserMovie");
 const { default: MovieApi } = require("../../utility/fetch_movie");
 
 const movieApi = new MovieApi();
+
 
 exports.postMovies = async (req, res) => {
 
@@ -10,7 +13,7 @@ exports.postMovies = async (req, res) => {
     const { userId, name, role } = req;
 
     const { title } = req.body;
-
+  
     const { Title, Released, Genre, Director } = await movieApi.getMovie(title);
 
     const { message } = await moviePost({

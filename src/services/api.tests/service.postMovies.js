@@ -1,12 +1,13 @@
 import fetch from "node-fetch";
 
-export const postMovies = async (token) => {
+export const postMovies = async ({token, title}) => {
+  
   const apiBase = "http://0.0.0.0:7000/movies";
 
     try {
       const response = await fetch(apiBase, {
         method: "POST",
-        body: JSON.stringify({ title: "coda" }),
+        body: JSON.stringify({ title }),
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
@@ -17,7 +18,7 @@ export const postMovies = async (token) => {
 
     } catch (error) {
 
-      return error;
+      throw new Error(error.message);
 
     }
 };
