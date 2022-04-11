@@ -31,7 +31,7 @@ cd nodejs-task
       - name: Build the Docker image
         run: APP_PORT=7000 JWT_SECRET=secret docker compose up --build -d
         env:
-          JWT_SECRET: SECRET_PASSWORD
+          JWT_SECRET: secret
           APP_PORT: 7000
       - name: Set Up Db And Migration
         run: sh setupDb/nodeV1.sh
@@ -52,6 +52,20 @@ cd nodejs-task
 ### create db migrate
 
 `docker compose exec <database-name> npx sequelize-cli db:migrate --env <ENV>`
+
+### Access DB for the project
+
+`docker compose exec postgresdb psql -U docker`
+
+### switch to the app database
+
+`\c development`
+
+### Query database Created DB Table from migration(Ref: setupDB/nodeV1/sh)
+
+`select * from "Users";`
+`select * from "Roles";`
+`select * from "Movies";`
 
 ## Generate JWT keys
 
