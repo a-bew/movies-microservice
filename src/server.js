@@ -6,20 +6,14 @@ import logger from "morgan";
 import VerifyToken from "./utility/jwt_helper";
 const { default: helmet } = require("helmet");
 const compression = require("compression");
-const pino = require('pino-http')()
 
 const getAuth = require("./routes/auth/auth.routes");
 const postRoutes = require("./routes/movies/authorizedUser.routes");
 const getRoutes = require("./routes/movies/getMovies.routes");
 
+const PORT = process.env.APP_PORT || 3000;
 const app = express();
 const verifier = new VerifyToken();
-
-const PORT = process.env.APP_PORT || 3000;
-
-app.use(pino)
-
-
 
 // app.use(limiter);
 app.set("trust proxy", 1);
@@ -40,23 +34,17 @@ app.use("/movies", getRoutes);
 
 app.use("/movies", verifier.verifyAccessToken, postRoutes); // :collection
 
-app.use((error, req, res, __) => {
-
-  req.log.error(`Error processing request ${error}. See next message for details`)
-  // console.error(
-  //   `Error processing request ${error}. See next message for details`
-  // );
-
-  req.log.error(error)
-  // console.error(error);
+app.use((error, _, res, __) => {
+  console.error(
+    `Error processing request ${error}. See next message for details`
+  );
+  console.error(error);
   return res.status(500).json({ error: "internal server error" });
 });
 
 if (process.env.NODE_ENV !== "test") {
   app.listen(PORT, () => {
-    // req.log.info(`auth svc running at port ${PORT}`)
     console.log(`auth svc running at port ${PORT}`);
-    
   });
 }
 
