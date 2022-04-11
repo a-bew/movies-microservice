@@ -41,15 +41,15 @@ cd nodejs-task
 
 ## Access Docker Shell (Ref: setupDB/nodeV1/sh)
 
-- drop db command
+### drop db command
 
 ` docker compose exec <container-name> npx sequelize-cli db:create <database-name> --env <ENV>`
 
-- create db command
+### create db command
 
 `docker compose exec <container-name> \ npx sequelize-cli db:create --env <ENV>`
 
-- create db migrate
+### create db migrate
 
 `docker compose exec <database-name> npx sequelize-cli db:migrate --env <ENV>`
 
