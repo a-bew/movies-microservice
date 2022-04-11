@@ -3,4 +3,4 @@ node_modules/
 scripts
 scripts/db
 docker-entrypoint-initdb.d/
-Dockerfile.postgresdbnode_modules/
+Dockerfile.postgresdb
