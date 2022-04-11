@@ -77,7 +77,6 @@ cd nodejs-task
         "password": "sR-_pcoow-27-6PAwCD8"
     }'
 
-    Response: {"message":"Movie RRR Added Successfully"}
 ```
 
 # POST MOVIE
@@ -87,6 +86,8 @@ cd nodejs-task
     -H "Content-Type: application/json" \
     -H 'Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTY0OTQwMDAwMSwiZXhwIjoxNjQ5NDAxODAxLCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.GlbEVHPKMKULUqOQpQXRcpeb9zSIghfaq2tUmGYksS8' -X POST 0.0.0.0:3000/movies
 ```
+
+    `Response: {"message":"Movie RRR Added Successfully"}`
 
 # GET MOVIE
 
