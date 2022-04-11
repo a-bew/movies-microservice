@@ -57,7 +57,6 @@ describe("Basic Simple post movie", () => {
 
     const response = await postMovies({token, title});
 
-    console.log("Basic Simple post movie", response)
 
     expect(response.status).toBe(200);
 
@@ -97,7 +96,6 @@ describe("Basic Post 4 movies", () => {
 
     const responses = await Promise.all(add4Movies.map((item)=>postMovies(item)));
 
-    console.log("4 movie", responses[responses.length-1])
     const result = responses.every(res=>res.status === 200)
 
     expect(result).toEqual(true);
@@ -113,13 +111,7 @@ describe("Basic Post 1 movies", () => {
 
     const response = await postMovies({token, title});
 
-    // const resObj = response.text()
-
-    // console.log("Basic Post 1 movies", response);
-
     expect(response.status).toBe(402);
-
-    // expect(JSON.stringify(resObj)).toEqual('{ status: 402, error:"You have exceeded 5 movies. Become a premium user for unlimited plan" }');
 
   });
 
