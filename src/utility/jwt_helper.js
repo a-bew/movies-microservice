@@ -1,48 +1,36 @@
-require('../config/config');
+require("../config/config");
 
-const createError = require('http-errors');
+const createError = require("http-errors");
 
-var JWT = require('jsonwebtoken');
+var JWT = require("jsonwebtoken");
 
-const SECRET = process.env.JWT_SECRET
+const SECRET = process.env.JWT_SECRET;
 
 class VerifyToken {
+  verifyAccessToken(req, res, next) {
+    if (!req.headers["authorization"]) return next(createError.Unauthorized());
 
-    verifyAccessToken(req, res, next){
+    // let token = req.headers["authorization"];
 
-        if (!req.headers['authorization']) return next(createError.Unauthorized())
+    var token = req.headers.authorization.split(" ")[1];
 
-        // let token = req.headers["authorization"];  
+    JWT.verify(token, SECRET, (err, payload) => {
+      if (err) {
+        console.log("err.message", err.message);
 
-        var token = req.headers.authorization.split(' ')[1];
-        
-        JWT.verify(token, SECRET, (err, payload)=>{
+        return next(createError.Unauthorized());
+      }
 
-            if (err){
+      const { userId, name, role } = payload;
+      console.log("Passed", token, SECRET);
 
-                console.log('err.message', err.message)
-            
-                return next(createError.Unauthorized())
-    
-            }
+      req.userId = userId;
+      req.name = name;
+      req.role = role;
 
-            const {
-                userId, name, role, iat, exp, iss, sub
-              } = payload;
-            console.log("Passed", token, SECRET)
-
-            req.userId = userId;  
-            req.name = name;   
-            req.role = role 
-
-            next()
-
-
-        })
-        
-    }
-
-
+      next();
+    });
+  }
 }
 
 export default VerifyToken;

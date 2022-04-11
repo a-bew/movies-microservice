@@ -3,11 +3,11 @@ name: Docker Image CD
 on:
   push:
     branches:
-      - 'master'
+      - "master"
     paths:
-      - 'src/*'
-      - 'package.json'
-      - 'Dockerfile'
+      - "src/*"
+      - "package.json"
+      - "Dockerfile"
 
 jobs:
   push-docker-image:

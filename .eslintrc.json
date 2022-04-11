@@ -1,20 +1,26 @@
-
-
 {
-    
     // "parserOptions": {
     //     "ecmaVersion": 11
     // },
-
+  
+    "root": true,
+    "parserOptions": {
+      "ecmaVersion": 12,
+      "sourceType": "module",
+      "noUnusedLocals": false
+    },
+    "extends": ["eslint:recommended", "prettier"],
     "env": {
-        "es6": true
+      "es2021": true,
+      "node": true,
+      "jest": true
+
     },
     "rules": {
-        "max-len": [2, 120, 8]
-      },
-      "parser": "babel-eslint",
-  "parserOptions": {
-    "sourceType": "module",
-    "allowImportExportEverywhere": true
+    //   "no-console": "error"
+    "no-unused-vars": ["error",  { "args": "none" }]
+
+    }
+    
   }
-}
+  

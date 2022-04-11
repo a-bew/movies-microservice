@@ -3,6 +3,10 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "format:check": "prettier --check .",
+    "format:write": "prettier --write .",
+    "lint:check": "eslint .",
+    "lint:fix": "eslint --fix .",
     "start": "NODE_ENV=production node ./src/server",
     "babel-node": "babel-node --presets='@babel/preset-env'",
     "dev": "NODE_ENV=development nodemon --exec yarn run babel-node -- ./src/server",
@@ -22,6 +26,7 @@
     "compression": "^1.7.4",
     "cors": "^2.8.5",
     "dotenv": "^16.0.0",
+    "eslint-config-airbnb": "^19.0.4",
     "express": "^4.17.3",
     "graphql": "^16.3.0",
     "helmet": "^5.0.2",
@@ -30,6 +35,7 @@
     "morgan": "^1.10.0",
     "node-fetch": "^2.6.7",
     "pg": "^8.7.3",
+    "pino-http": "^6.6.0",
     "sequelize": "^6.12.0",
     "supertest": "^6.1.6"
   },
@@ -45,9 +51,11 @@
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.2.2",
     "babel-preset-env": "^1.7.0",
-    "eslint": "^4.19.1",
+    "eslint": "^8.13.0",
+    "eslint-config-prettier": "^8.5.0",
     "eslint-config-strongloop": "^2.1.0",
     "nodemon": "^2.0.13",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2"
   }
 }

@@ -1,44 +1,49 @@
-const dotenv = require('dotenv')
-const path = require('path')
-
+const dotenv = require("dotenv");
+const path = require("path");
 
 dotenv.config({
-	path: path.resolve(`.env.${process.env.NODE_ENV}`)
-})
+  path: path.resolve(`.env.${process.env.NODE_ENV}`),
+});
 
-const {USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV, TEST_DATABASE, DEV_DATABASE } = process.env;
+const {
+  USERNAME,
+  PASSWORD,
+  HOST,
+  DIALECT,
+  PORT,
+  NODE_ENV,
+  TEST_DATABASE,
+  DEV_DATABASE,
+} = process.env;
 
-// if (NODE_ENV !== "development") {
+if (NODE_ENV !== "development") {
 
-//   console.log = () => {};
-//   console.info = () => {}; 
-//   console.warn = () => {};
-//   console.error = () => {};
-//   console.debug = () => {};
+  console.log = () => {};
+  console.info = () => {};
+  console.warn = () => {};
+  console.error = () => {};
+  console.debug = () => {};
 
-// }
+}
 
-console.log(path.resolve(__dirname,`.env.${process.env.NODE_ENV}`), process.env.NODE_ENV)
-
-console.log(USERNAME, PASSWORD, DATABASE, HOST, DIALECT, PORT, NODE_ENV, TEST_DATABASE, DEV_DATABASE);
 
 module.exports = {
-  "development": {
-    "username": USERNAME,
-    "password": PASSWORD,
-    "database": DEV_DATABASE,
-    "host": HOST,
-    "dialect": DIALECT,
-     port: PORT
+  development: {
+    username: USERNAME,
+    password: PASSWORD,
+    database: DEV_DATABASE,
+    host: HOST,
+    dialect: DIALECT,
+    port: PORT,
   },
 
-  "test": {
-    "username": USERNAME,
-    "password": PASSWORD,
-    "database": TEST_DATABASE,
-    "host": HOST,
-    "dialect": DIALECT,
-    "port": PORT
+  test: {
+    username: USERNAME,
+    password: PASSWORD,
+    database: TEST_DATABASE,
+    host: HOST,
+    dialect: DIALECT,
+    port: PORT,
   },
 
   // "production": {
@@ -48,5 +53,4 @@ module.exports = {
   //   "host": "127.0.0.1",
   //   "dialect": "mysql"
   // }
-
-}
+};

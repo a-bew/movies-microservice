@@ -1,29 +1,33 @@
-const { moviePost } = require('../../services/movies/service.createMovie');
-const { default: MovieApi } = require('../../utility/fetch_movie');
+const { moviePost } = require("../../services/movies/service.createMovie");
+const { default: MovieApi } = require("../../utility/fetch_movie");
 
-const movieApi = new MovieApi() 
+const movieApi = new MovieApi();
 
-exports.postMovies = async (req, res)=>{
-  
-    try {
+exports.postMovies = async (req, res) => {
 
-        const {userId, name, role } = req;
+  try {
 
-        const { title } = req.body;
+    const { userId, name, role } = req;
 
-        const { Title, Released, Genre, Director, } = await movieApi.getMovie(title);
+    const { title } = req.body;
 
-        const { message } = await moviePost({ Title, Released, Genre, Director, userId, name, role })
+    const { Title, Released, Genre, Director } = await movieApi.getMovie(title);
 
-        res.status(200).json({message: message})
+    const { message } = await moviePost({
+      Title,
+      Released,
+      Genre,
+      Director,
+      userId,
+      name,
+      role,
+    });
 
-    } catch (error) {
+    res.status(200).json({ message: message });
 
-        console.log(error.message);
-        
-        res.status(500).json({status: 500, message: error.message})
+  } catch (error) {
 
-    }
-  
-}
-  
+    res.status(500).json({ status: 500, message: error.message });
+
+  }
+};

@@ -1,26 +1,23 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
+export const getMovies = async ({ userId }) => {
 
-export const getMovies = ({userId})=>{
+  const apiBase =
+    "http://0.0.0.0:7000/movies?" + new URLSearchParams({ userId });
 
-    const apiBase = 'http://0.0.0.0:7000/movies?'+ new URLSearchParams({userId});
+    try {
+      const response = await fetch(apiBase, {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+      });
 
-    return new Promise( async(resolve, reject)=>{
+      return response;
 
-        try {
-            const response = await fetch(apiBase, {
-                method: 'GET',
-                headers: { 
-                    'Content-Type': 'application/json',
-                 }
-            })
+    } catch (error) {
 
-            return resolve(response);
+      return error;
 
-        } catch (error) {
-            
-            reject(error)
-        }            
-
-    })
- }
+    }
+};

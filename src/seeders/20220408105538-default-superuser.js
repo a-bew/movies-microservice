@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
 module.exports = {
-  async up (queryInterface, Sequelize) {
+  async up(queryInterface, Sequelize) {
     /**
      * Add seed commands here.
      *
@@ -10,27 +10,27 @@ module.exports = {
      *   name: 'John Doe',
      *   isBetaMember: false
      * }], {});
-    */
+     */
 
-
-   return queryInterface.bulkInsert('Users', [{
-       id: 1,
+    return queryInterface.bulkInsert("Users", [
+      {
+        id: 1,
         userId: 123,
-        name: 'Endurance',
+        name: "Endurance",
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       },
       {
         id: 2,
         userId: 124,
-        name: 'Endurance',
+        name: "Endurance",
         createdAt: new Date(),
-        updatedAt: new Date()
-      }
-  ]);
+        updatedAt: new Date(),
+      },
+    ]);
   },
 
-  async down (queryInterface, Sequelize) {
+  async down(queryInterface, Sequelize) {
     /**
      * Add commands to revert seed here.
      *
@@ -38,7 +38,6 @@ module.exports = {
      * await queryInterface.bulkDelete('People', null, {});
      */
 
-     return queryInterface.bulkDelete('superuser', { userId: 124 }, {});
-
-  }
+    return queryInterface.bulkDelete("superuser", { userId: 124 }, {});
+  },
 };

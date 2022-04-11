@@ -1,8 +1,8 @@
-import express from 'express'
+import express from "express";
 const router = express.Router();
 
-const controllers = require('../../controllers/auth/authenticateUser.controller.js');
+const controllers = require("../../controllers/auth/authenticateUser.controller.js");
 
-router.post("/", controllers.authenticateUser);   // Only Authorized User can post movies
+router.post("/", controllers.authenticateUser); // Only Authorized User can post movies
 
 module.exports = router;

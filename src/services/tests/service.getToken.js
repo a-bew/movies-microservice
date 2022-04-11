@@ -1,31 +1,28 @@
-import fetch from 'node-fetch';
+import fetch from "node-fetch";
 
-export const getToken = ()=>{
+export const getToken = async () => {
 
-    const apiBase = 'http://0.0.0.0:7000/auth';
+  const apiBase = "http://0.0.0.0:7000/auth";
 
-    const params = { 
-        "username": "basic-thomas",
-        "password": "sR-_pcoow-27-6PAwCD8"
-    }
+  const params = {
+    username: "basic-thomas",
+    password: "sR-_pcoow-27-6PAwCD8",
+  };
 
+  try {
 
-    return new Promise( async (resolve, reject)=>{
+    const response = await fetch(apiBase, {
+      method: "POST",
+      body: JSON.stringify(params),
+      headers: { "Content-Type": "application/json" },
+    });
 
-        try {
+    return response
 
-            const response = await fetch(apiBase, {
-                method: 'POST',
-                body: JSON.stringify(params),
-                headers: { 'Content-Type': 'application/json' }
-            })
-        
-            return resolve(response)
+  } catch (error) {
 
-        } catch (error) {
+    return error
 
-            reject(error);
+  }
 
-        }
-    })        
-}
+  };
