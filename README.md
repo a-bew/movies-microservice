@@ -12,8 +12,7 @@
 - **Continuous Integration**: GitHub Actions + Docker Compose
 - **Other**: Nodemon, DotEnv
 - Well structured
-- API versioning
-- Request Validation
+
 
 ## Getting Started
 
