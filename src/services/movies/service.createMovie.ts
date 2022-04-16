@@ -1,10 +1,20 @@
-// const db = require('../config/db.config.js');
-var db = require("../../models");
+import db from '../../models';
+
 const User = db.User;
 const Role = db.Role;
 const Movie = db.Movie;
 
-export const moviePost = async (movie)  => {
+type PostObject = {
+  Title:string, 
+  Released:string, 
+  Genre:string, 
+  Director:string, 
+  userId:string|number, 
+  name:string, 
+  role:string 
+}
+
+export default async (movie:PostObject)  => {
 
     const { Title, Released, Genre, Director, userId, name, role } = movie;
 
@@ -17,7 +27,7 @@ export const moviePost = async (movie)  => {
           {
             model: Movie,
             required: false,
-            as: "movies",
+            as: 'movies',
           },
         ],
       });
@@ -32,7 +42,6 @@ export const moviePost = async (movie)  => {
 
         await user.addMovie(movie);
 
-        // console.log("result", result);
       } else {
         await User.create(
           {
@@ -54,11 +63,11 @@ export const moviePost = async (movie)  => {
             include: [
               {
                 model: Role,
-                as: "role",
+                as: 'role',
               },
               {
                 model: Movie,
-                as: "movies",
+                as: 'movies',
               },
             ],
           }
@@ -67,7 +76,7 @@ export const moviePost = async (movie)  => {
 
       return { message: `Movie ${Title} Added Successfully` }
 
-    } catch (error) {
+    } catch (error:any) {
 
       throw new Error(error.message)
 

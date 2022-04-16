@@ -1,13 +1,28 @@
-"use strict";
-const { Model } = require("sequelize");
-module.exports = (sequelize, DataTypes) => {
-  class Movie extends Model {
+import { Model } from "sequelize";
+
+type MovieAttributes = {
+  userId: number,
+  title: string,
+  release: string,
+  genre: string,
+  director: string
+  // other attributes...
+};
+
+module.exports = (sequelize:any, DataTypes:any) => {
+  class Movie extends Model<MovieAttributes> 
+  implements MovieAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.
      * The `models/index` file will call this method automatically.
      */
-    static associate(models) {
+     userId!: number;
+     title!: string;
+     release!: string;
+     genre!: string;
+     director!: string;
+    static associate(models:any) {
       // define association here
     }
   }

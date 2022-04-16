@@ -1,33 +1,15 @@
-const dotenv = require("dotenv");
-const path = require("path");
+import path from 'path';
+import dotenv from 'dotenv';
 
 dotenv.config({
   path: path.resolve(`.env.${process.env.NODE_ENV}`),
 });
 
 const {
-  USERNAME,
-  PASSWORD,
-  HOST,
-  DIALECT,
-  PORT,
-  NODE_ENV,
-  TEST_DATABASE,
-  DEV_DATABASE,
+  USERNAME, PASSWORD, HOST, DIALECT, PORT, TEST_DATABASE, DEV_DATABASE,
 } = process.env;
 
-if (NODE_ENV !== "development") {
-
-  console.log = () => {};
-  console.info = () => {};
-  console.warn = () => {};
-  console.error = () => {};
-  console.debug = () => {};
-
-}
-
-
-module.exports = {
+export default {
   development: {
     username: USERNAME,
     password: PASSWORD,
@@ -46,11 +28,4 @@ module.exports = {
     port: PORT,
   },
 
-  // "production": {
-  //   "username": "root",
-  //   "password": null,
-  //   "database": "database_production",
-  //   "host": "127.0.0.1",
-  //   "dialect": "mysql"
-  // }
 };

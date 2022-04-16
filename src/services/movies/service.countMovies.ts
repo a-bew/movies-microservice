@@ -1,9 +1,9 @@
-// const db = require('../config/db.config.js');
-var db = require("../../models");
+import db from '../../models';
+
 const Movie = db.Movie;
 const User = db.User;
 
-const canPostMovies = async (req, res, next)=>{
+const canPostMovies = async (req:any, res:any, next:any)=>{
 
     try {
 
@@ -17,14 +17,14 @@ const canPostMovies = async (req, res, next)=>{
           {
             model: Movie,
             required: false,
-            as: "movies",
+            as: 'movies',
           },
         ],
       });
 
-    if (role === "basic" && user?.movies?.length>5 ){
+    if (role === 'basic' && user?.movies?.length>5 ){
 
-        const error = "You have exceeded 5 movies. Become a premium user for unlimited plan";
+        const error = 'You have exceeded 5 movies. Become a premium user for unlimited plan';
 
         next(res.status(402).json({ status: 402, message:error }));
         return;
@@ -36,7 +36,7 @@ const canPostMovies = async (req, res, next)=>{
 
       }
 
-    } catch (error) {
+    } catch (error:any) {
     
       return res.status(500).json({ status: 500, message: error.message });
     }
@@ -44,4 +44,4 @@ const canPostMovies = async (req, res, next)=>{
   }
   
 
-  module.exports = canPostMovies;
+  export default canPostMovies;

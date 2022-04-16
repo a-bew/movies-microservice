@@ -1,12 +1,9 @@
-// const { moviesCounted } = require("../../services/movies/service.countMovies");
-const { moviePost } = require("../../services/movies/service.createMovie");
-// const { getUserMovie } = require("../../services/movies/service.getUserMovie");
-const { default: MovieApi } = require("../../utility/fetch_movie");
+import moviePost from '../../services/movies/service.createMovie';
+import MovieApi from '../../utility/fetch_movie';
 
 const movieApi = new MovieApi();
 
-
-exports.postMovies = async (req, res) => {
+export default async (req:any, res:any) => {
 
   try {
 
@@ -28,7 +25,7 @@ exports.postMovies = async (req, res) => {
 
     res.status(200).json({ message: message });
 
-  } catch (error) {
+  } catch (error:any) {
 
     res.status(500).json({ status: 500, message: error.message });
 
