@@ -26,8 +26,6 @@ export default async (req:any, res:any) => {
     res.status(200).json({ message: message });
 
   } catch (error:any) {
-
     res.status(500).json({ status: 500, error: "An error has occurred. Please try again" });
-
   }
 };

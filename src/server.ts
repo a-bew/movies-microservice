@@ -24,8 +24,9 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use('/auth', getAuth);
-app.use('/movies', getRoutes);
+app.use('/movies', verifier.verifyAccessToken, getRoutes);
 app.use('/movies', verifier.verifyAccessToken, canPostMovies,  postRoutes); 
+
 app.use((error:any, _:any, res:any, __:any) => {
   console.error(
     `Error processing request ${error}. See next message for details`

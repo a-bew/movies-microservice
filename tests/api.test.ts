@@ -104,9 +104,16 @@ describe('Premium Post 6 movies', () => {
   });
 });
 
-describe('Get Movies belonging to an authorized user', () => {
+describe('Get Movies belonging to an authorized simple user', () => {
   test('should get /movies', async () => {
-    const response = await getMovies({ userId: 123 });
+    const response = await getMovies({ token });
+    expect(response.status).toBe(200);
+  });
+});
+
+describe('Get Movies belonging to an authorized premium user', () => {
+  test('should get /movies', async () => {
+    const response = await getMovies({ token: tokenPremium });
     expect(response.status).toBe(200);
   });
 });

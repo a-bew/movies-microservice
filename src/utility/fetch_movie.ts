@@ -1,7 +1,7 @@
 import { RESTDataSource, HTTPCache } from 'apollo-datasource-rest';
 import { CustomError } from './misc_functions';
 
-const { APIKEY, I } = process.env;
+const { APIKEY, I, OMDB_BASE_URL } = process.env;
 
 interface MovieObject {
   Title:string, Released:string, Genre:string, Director:string
@@ -10,7 +10,7 @@ interface MovieObject {
 class MovieApi extends RESTDataSource {
   constructor() {
     super();
-    this.baseURL = 'http://www.omdbapi.com';
+    this.baseURL = OMDB_BASE_URL;
     this.httpCache = new HTTPCache();
   }
 

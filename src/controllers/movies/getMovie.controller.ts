@@ -1,9 +1,9 @@
 import getUserMovie from '../../services/movies/service.getUserMovie';
 import { Request, Response } from 'express';
 
-export default async (req: Request, res: Response) => {
+export default async (req: any, res: Response) => {
 
-  const userId:any = req.query.userId;
+  const userId:any = req.userId;
 
   try {
     
