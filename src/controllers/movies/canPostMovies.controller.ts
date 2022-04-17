@@ -22,10 +22,8 @@ const canPostMovies = async (req:any, res:any, next:any)=>{
       }
 
     } catch (error:any) {
-    
       logger.error(`${error.status || 500} - ${res.statusMessage} - ${error.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);    
       res.status(500).json({ error: "An error has occurred. Please try again" });
-
     }
   
   }

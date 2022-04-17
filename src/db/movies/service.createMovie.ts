@@ -77,7 +77,7 @@ export default async (movie:PostObject)  => {
     
   } catch (error:any) {
 
-    throw error;
+    throw new CustomError(error.message);
 
   }
 };

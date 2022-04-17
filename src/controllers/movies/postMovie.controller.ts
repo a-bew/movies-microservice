@@ -7,7 +7,6 @@ const movieApi = new MovieApi();
 export default async (req:any, res:any) => {
 
   try {
-
     const { userId, name, role } = req;
 
     const { title } = req.body;
@@ -25,11 +24,8 @@ export default async (req:any, res:any) => {
     });
 
     res.status(200).json({ message });
-
   } catch (error:any) {
-
     logger.error(`${error.status || 500} - ${res.statusMessage} - ${error.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
     res.status(500).json({ error: "An error has occurred. Please try again" });
-
   }
 };

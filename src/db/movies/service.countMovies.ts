@@ -7,8 +7,6 @@ const User = db.User;
 const countMovies = async (userId:string|number)=>{
 
     try {
-
-
       const user = await User.findOne({
         where: {
           userId,
@@ -21,15 +19,12 @@ const countMovies = async (userId:string|number)=>{
           },
         ],
       });
-
+      
       return user && user?.movies?.length || 0
 
     } catch (error:any) {
-    
-      throw error;
-
+      throw new CustomError(error.message);
     }
-  
   }
   
 

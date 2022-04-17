@@ -21,7 +21,7 @@ export default async ( userId : string|number ) => {
 
     return user && user.movies;
   } catch (error:any) {
-    throw error
+    throw new CustomError(error.message);
   }
 };
 
