@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { CustomError } from '../../utility/misc_functions';
 
 export default async ({ userId }:any) => {
 
@@ -17,7 +18,7 @@ export default async ({ userId }:any) => {
 
     } catch (error:any) {
 
-      throw new Error(error.message);
+      throw new CustomError("An Error has occurred. Please try again");
 
     }
 };

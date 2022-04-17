@@ -1,4 +1,5 @@
 import fetch from 'node-fetch';
+import { CustomError } from '../../utility/misc_functions';
 
 type RequestParams = {
   token: string, 
@@ -23,7 +24,7 @@ export default async ({token, title}:RequestParams) => {
 
     } catch (error:any) {
 
-      throw new Error(error.message);
+      throw new CustomError("An Error has occurred. Please try again");
 
     }
 

@@ -3,12 +3,10 @@ import { Model } from "sequelize";
 type UserAttributes = {
   userId: number,
   name: string,
-  // other attributes...
 };
 
 module.exports = (sequelize: any, DataTypes: any) => {
-  class User extends Model<UserAttributes> 
-  implements UserAttributes {
+  class User extends Model<UserAttributes> implements UserAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.

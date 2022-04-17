@@ -20,7 +20,6 @@ const users = [
 class AuthError extends Error {}
 
 const authFactory = (secret:string) => (username:string, password:string) => {
-
   const user = users.find((u) => u.username === username);
 
   if (!user || user.password !== password) {
@@ -40,7 +39,6 @@ const authFactory = (secret:string) => (username:string, password:string) => {
       expiresIn: 30 * 60,
     }
   );
-
 };
 
 export default {

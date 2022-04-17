@@ -1,31 +1,30 @@
 import '../config/config';
+import { Response, NextFunction } from 'express';
 import createError from 'http-errors';
+import JWT from 'jsonwebtoken';
 
-var JWT = require('jsonwebtoken');
-
-const SECRET = process.env.JWT_SECRET;
+const SECRET = process.env.JWT_SECRET as string;
 
 class VerifyToken {
-  verifyAccessToken(req:any, res:any, next:any) {
-    if (!req.headers['authorization']) return next(new createError.Unauthorized());
+  verifyAccessToken(req:any, res:Response, next:NextFunction) {
+    if (!req.headers.authorization) return next(new createError.Unauthorized());
 
-    var token = req.headers.authorization.split(' ')[1];
+    const token = req.headers.authorization.split(' ')[1];
 
     JWT.verify(token, SECRET, (err:any, payload:any) => {
-
       if (err) {
         return next(new createError.Unauthorized());
       }
 
       const { userId, name, role } = payload;
-      console.log('Passed', token, SECRET);
 
       req.userId = userId;
       req.name = name;
       req.role = role;
 
-      next();
+      return next();
     });
+    return null;
   }
 }
 

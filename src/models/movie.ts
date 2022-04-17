@@ -6,12 +6,10 @@ type MovieAttributes = {
   release: string,
   genre: string,
   director: string
-  // other attributes...
 };
 
 module.exports = (sequelize:any, DataTypes:any) => {
-  class Movie extends Model<MovieAttributes> 
-  implements MovieAttributes {
+  class Movie extends Model<MovieAttributes> implements MovieAttributes {
     /**
      * Helper method for defining associations.
      * This method is not a part of Sequelize lifecycle.

@@ -1,4 +1,5 @@
 import db from '../../models';
+import { CustomError } from '../../utility/misc_functions';
 
 const User = db.User;
 const Role = db.Role;
@@ -15,70 +16,66 @@ type PostObject = {
 }
 
 export default async (movie:PostObject)  => {
-
-    const { Title, Released, Genre, Director, userId, name, role } = movie;
-
-    try {
-      const user = await User.findOne({
-        where: {
-          userId,
+  const { Title, Released, Genre, Director, userId, name, role } = movie;
+  try {
+    const user = await User.findOne({
+      where: {
+        userId,
+      },
+      include: [
+        {
+          model: Movie,
+          required: false,
+          as: 'movies',
         },
-        include: [
-          {
-            model: Movie,
-            required: false,
-            as: 'movies',
-          },
-        ],
+      ],
+    });
+
+    if (user) {
+      const movie = await Movie.create({
+        title: Title,
+        release: Released,
+        genre: Genre,
+        director: Director,
       });
-
-      if (user) {
-        const movie = await Movie.create({
-          title: Title,
-          release: Released,
-          genre: Genre,
-          director: Director,
-        });
-
-        await user.addMovie(movie);
-
-      } else {
-        await User.create(
-          {
-            userId: userId,
-            name: name,
-            role: {
-              name: role,
-            },
-            movies: [
-              {
-                title: Title,
-                release: Released,
-                genre: Genre,
-                director: Director,
-              },
-            ],
+      await user.addMovie(movie);
+    } else {
+      await User.create(
+        {
+          userId: userId,
+          name: name,
+          role: {
+            name: role,
           },
-          {
-            include: [
-              {
-                model: Role,
-                as: 'role',
-              },
-              {
-                model: Movie,
-                as: 'movies',
-              },
-            ],
-          }
-        );
-      }
-
-      return { message: `Movie ${Title} Added Successfully` }
-
-    } catch (error:any) {
-
-      throw new Error(error.message)
-
+          movies: [
+            {
+              title: Title,
+              release: Released,
+              genre: Genre,
+              director: Director,
+            },
+          ],
+        },
+        {
+          include: [
+            {
+              model: Role,
+              as: 'role',
+            },
+            {
+              model: Movie,
+              as: 'movies',
+            },
+          ],
+        }
+      );
     }
+    return { 
+      message: `Movie ${Title} Added Successfully` 
+    }
+  } catch (error:any) {
+
+    throw new CustomError("An Error has occurred. Please try again")
+
+  }
 };

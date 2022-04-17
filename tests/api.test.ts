@@ -70,10 +70,7 @@ describe('Basic Post 4 movies', () => {
       { token, title: 'RRR' },
       { token, title: 'King Richard' },
       { token, title: 'The Power of the Dog' },
-      { token, title: 'Morbius' },
-      { token, title: 'RRR' },
-      { token, title: 'King Richard' },
-      { token, title: 'The Power of the Dog' },
+
     ];
     const responses = await Promise.all(add4Movies.map((item) => postMovies(item)));
     const result = responses.every((res) => res.status === 200);
@@ -97,6 +94,8 @@ describe('Premium Post 6 movies', () => {
       { token: tokenPremium, title: 'King Richard' },
       { token: tokenPremium, title: 'Deep Water' },
       { token: tokenPremium, title: 'The Power of the Dog' },
+      { token: tokenPremium, title: 'The Bubble' },
+
     ];
     const responses = await Promise.all(add5Movies.map((item) => postMovies(item)));
     const result = responses.every((res) => res.status === 200);
@@ -105,7 +104,7 @@ describe('Premium Post 6 movies', () => {
   });
 });
 
-describe('Get Movies', () => {
+describe('Get Movies belonging to an authorized user', () => {
   test('should get /movies', async () => {
     const response = await getMovies({ userId: 123 });
     expect(response.status).toBe(200);

@@ -13,7 +13,7 @@ export default async (req: Request, res: Response) => {
 
   } catch (error:any) {
 
-    res.status(500).json({ message: error.message });
+    res.status(500).json({ status:500, error: "An error has occurred. Please try again" });
 
   }
 

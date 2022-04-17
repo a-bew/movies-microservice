@@ -22,7 +22,7 @@ const canPostMovies = async (req:any, res:any, next:any)=>{
         ],
       });
 
-    if (role === 'basic' && user?.movies?.length>5 ){
+    if (role === 'basic' && user?.movies?.length>4 ){
 
         const error = 'You have exceeded 5 movies. Become a premium user for unlimited plan';
 

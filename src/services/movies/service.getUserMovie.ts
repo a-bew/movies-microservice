@@ -1,11 +1,10 @@
 import db from '../../models';
+import { CustomError } from '../../utility/misc_functions';
 const Movie = db.Movie;
 const User = db.User;
 
 export default async ( userId : string|number ) => {
-  
   try {
-  
     const user = await User.findOne({
       where: {
         userId,
@@ -17,15 +16,10 @@ export default async ( userId : string|number ) => {
           as: 'movies',
         },
       ],
-    });
-    
+    });    
     return user && user.movies;
-
   } catch (error:any) {
-    
-    throw new Error(error.message)
-  
+    throw new CustomError("An Error has occurred. Please try again")
   }
-
 };
 
