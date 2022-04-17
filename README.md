@@ -106,7 +106,8 @@ cd nodejs-task
 # GET MOVIE
 
 ```shell
-      curl -X GET "0.0.0.0:3000/movies?userId=123"
+      curl -X GET "http://127.0.0.1:7000/movies" -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEyMywibmFtZSI6IkJhc2ljIFRob21hcyIsInJvbGUiOiJiYXNpYyIsImlhdCI6MTY1MDE5Mzg1MCwiZXhwIjoxNjUwMTk1NjUwLCJpc3MiOiJodHRwczovL3d3dy5uZXRndXJ1LmNvbS8iLCJzdWIiOiIxMjMifQ.cw8LFffw48XufKQBIaH9zInRP3873W1aQ2o94cJdsvs"
+
     Response: [{
         "id":1,
         "userId":123,
