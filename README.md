@@ -21,6 +21,22 @@ cd nodejs-task
 
 ```
 
+## Environment Variable
+
+```shell
+  cp .env.example .env
+  cp .env.development.example .env.development
+  cp .env.test.example .env.test
+
+  - Additional Changes
+  Check and remove all occurrence of .example extension in the following files
+
+  - Dockerfile
+  - docker-compose.yml
+  - src/config/config.js
+
+```
+
 ## How to RUN locally
 
 ```
@@ -61,9 +77,9 @@ cd nodejs-task
 
 ### Query database Created DB Table from migration(Ref: setupDB/nodeV1/sh)
 
-`select * from "Users";`
-`select * from "Roles";`
-`select * from "Movies";`
+- `select * from "Users";`
+- `select * from "Roles";`
+- `select * from "Movies";`
 
 ## Generate JWT keys
 
