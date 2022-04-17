@@ -18,14 +18,12 @@ services:
       JWT_SECRET: ${JWT_SECRET}
     env_file:
       - "./.env.example"
-      - "./.env.${NODE_ENV}.example"
 
   postgresdb:
     image: postgres
     restart: unless-stopped
     env_file:
       - "./.env.example"
-      - "./.env.${NODE_ENV}.example"
     ports:
       - "4321:5432"
     environment:
