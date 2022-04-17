@@ -7,8 +7,8 @@ RUN npm install
 
 COPY ./tsconfig.json ./
 COPY ./.sequelizerc ./
-COPY ./.env.test  ./
-COPY ./.env.development ./
+COPY ./.env.test.example  ./
+COPY ./.env.development.example ./
 
 RUN mkdir ./src
 COPY ./src ./src

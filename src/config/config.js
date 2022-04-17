@@ -1,15 +1,15 @@
-import path from 'path';
-import dotenv from 'dotenv';
+const path = require('path');
+const dotenv = require('dotenv');
 
 dotenv.config({
-  path: path.resolve(`.env.${process.env.NODE_ENV}`),
+  path: path.resolve(`.env.${process.env.NODE_ENV}.example`),
 });
 
 const {
   USERNAME, PASSWORD, HOST, DIALECT, PORT, TEST_DATABASE, DEV_DATABASE,
 } = process.env;
 
-export default {
+module.exports = {
   development: {
     username: USERNAME,
     password: PASSWORD,
