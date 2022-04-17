@@ -1,5 +1,6 @@
-import getUserMovie from '../../services/movies/service.getUserMovie';
+import getUserMovie from '../../db/movies/service.getUserMovie';
 import { Request, Response } from 'express';
+import logger from '../../utility/logger';
 
 export default async (req: any, res: Response) => {
 
@@ -13,7 +14,8 @@ export default async (req: any, res: Response) => {
 
   } catch (error:any) {
 
-    res.status(500).json({ status:500, error: "An error has occurred. Please try again" });
+    logger.error(`${error.status || 500} - ${res.statusMessage} - ${error.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+    res.status(500).json({ error: "An error has occurred. Please try again" });
 
   }
 

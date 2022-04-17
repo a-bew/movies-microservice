@@ -1,5 +1,5 @@
 import fetch from 'node-fetch';
-import { CustomError } from '../../utility/misc_functions';
+import { CustomError } from '../../src/utility/custom_error';
 
 export default async ({ token }:any) => {
 

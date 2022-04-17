@@ -1,5 +1,6 @@
-import moviePost from '../../services/movies/service.createMovie';
+import moviePost from '../../db/movies/service.createMovie';
 import MovieApi from '../../utility/fetch_movie';
+import logger from '../../utility/logger';
 
 const movieApi = new MovieApi();
 
@@ -23,9 +24,12 @@ export default async (req:any, res:any) => {
       role,
     });
 
-    res.status(200).json({ message: message });
+    res.status(200).json({ message });
 
   } catch (error:any) {
-    res.status(500).json({ status: 500, error: "An error has occurred. Please try again" });
+
+    logger.error(`${error.status || 500} - ${res.statusMessage} - ${error.message} - ${req.originalUrl} - ${req.method} - ${req.ip}`);
+    res.status(500).json({ error: "An error has occurred. Please try again" });
+
   }
 };

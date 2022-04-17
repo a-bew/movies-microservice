@@ -1,6 +1,6 @@
-import postMovies from '../src/services/api.tests/service.postMovies';
-import getMovies from '../src/services/api.tests/service.getMovies';
-import getToken from '../src/services/api.tests/service.getToken';
+import postMovies from './api.tests/request.postMovies';
+import getMovies from './api.tests/request.getMovies';
+import getToken from './api.tests/request.getToken';
 
 const params:object = {
   username: 'basic-thomas',

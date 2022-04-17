@@ -1,5 +1,5 @@
 import { RESTDataSource, HTTPCache } from 'apollo-datasource-rest';
-import { CustomError } from './misc_functions';
+import { CustomError } from './custom_error';
 
 const { APIKEY, I, OMDB_BASE_URL } = process.env;
 
@@ -28,7 +28,6 @@ class MovieApi extends RESTDataSource {
     });
 
     if (!Object.prototype.hasOwnProperty.call(response, 'Response')) {
-      //response.Error;
       throw new CustomError("Request failed. Please try again");
     }
 
