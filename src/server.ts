@@ -31,8 +31,6 @@ app.use('/movies', verifier.verifyAccessToken, getRoutes);
 app.use('/movies', verifier.verifyAccessToken, canPostMovies,  postRoutes); 
 
 app.use(async (req, res, next) => {
-  // const error = new Error("Not found");
-  // error.status = 404;
   next(new createHttpError.NotFound())
 })
 
